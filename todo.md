@@ -60,3 +60,18 @@ _// Total - Home | Home Team Total Goals(1st Half) | Home Team Total Goals(2nd H
 1) ищется значение 'Total - Away'. **475**
 2) ищется значение 'Total - Home'. **443**
 3) ... и т.д
+
+всё это в коде:
+
+`// GetOdds
+Market.TeamTotalOver05 => IsHome() ? OddsVal(443) : OddsVal(475),
+Market.TeamOppTotalOver05 => IsHome() ? OddsVal(475) : OddsVal(443),
+
+// GetOdds2Half
+Market.TeamTotalOver05 => IsHome() ? OddsVal(1394) : OddsVal(1398),
+Market.TeamOppTotalOver05 => IsHome() ? OddsVal(1398) : OddsVal(1394),
+
+// GetOdds2Half
+Market.TeamTotalOver05 => IsHome() ? OddsVal(1412) : OddsVal(1420),
+Market.TeamOppTotalOver05 => IsHome() ? OddsVal(1420) : OddsVal(1412),`
+
