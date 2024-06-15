@@ -21,7 +21,8 @@ public class ProfitCalcTests
             .OrderByDescending(i=>i.Date).Take(5).ToArray();
         
 
-        OddsProfitCalc calc = new(teamId);
+        // Экземпляр класса подсчитывает профит для одной конкретной команды
+        OddsProfitCalc calc = new(teamId); 
 
         foreach (var g in games)
         {
@@ -34,6 +35,7 @@ public class ProfitCalcTests
         }
         
         Assert.AreEqual(-2.37f, calc.Profit[OddsProfitCalc.Market.Win]);
+        Assert.AreEqual(-1.83f, calc.ProfitFirstHalf[OddsProfitCalc.Market.Win],0.01f);
     }
     
 }
