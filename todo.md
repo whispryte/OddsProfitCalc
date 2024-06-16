@@ -69,7 +69,7 @@ _всё это в коде_: (этот код представляет собо�
 Market.TeamTotalOver05 => IsHome() ? OddsVal(443) : OddsVal(475),
 Market.TeamOppTotalOver05 => IsHome() ? OddsVal(475) : OddsVal(443),
 
-// GetOdds2Half
+// GetOdds1Half
 
 Market.TeamTotalOver05 => IsHome() ? OddsVal(1394) : OddsVal(1398),
 Market.TeamOppTotalOver05 => IsHome() ? OddsVal(1398) : OddsVal(1394),
