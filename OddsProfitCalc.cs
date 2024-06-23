@@ -542,27 +542,34 @@ public class OddsProfitCalc
             if (game.HomeTeamId != _teamId && game.AwayTeamId != _teamId)
                 continue;
 
-            // Полный матча
-            var profit = GetProfit(market, game);
-            if (profit == null) continue;
-
-            Profit.TryAdd(market, 0);
-            Profit[market] += profit.Value;
-
-            // 1ый тайм
-            var profitFirstHalf = GetProfit(market, game, 1);
-            if (profitFirstHalf != null)
+            try
             {
-                ProfitFirstHalf.TryAdd(market, 0);
-                ProfitFirstHalf[market] += profitFirstHalf.Value;
+                // Полный матча
+                var profit = GetProfit(market, game);
+                if (profit == null) continue;
+
+                Profit.TryAdd(market, 0);
+                Profit[market] += profit.Value;
+
+                // 1ый тайм
+                var profitFirstHalf = GetProfit(market, game, 1);
+                if (profitFirstHalf != null)
+                {
+                    ProfitFirstHalf.TryAdd(market, 0);
+                    ProfitFirstHalf[market] += profitFirstHalf.Value;
+                }
+
+                // 2ой тайм
+                var profitSecondHalf = GetProfit(market, game, 2);
+                if (profitSecondHalf != null)
+                {
+                    ProfitSecondHalf.TryAdd(market, 0);
+                    ProfitSecondHalf[market] += profitSecondHalf.Value;
+                }
             }
-
-            // 2ой тайм
-            var profitSecondHalf = GetProfit(market, game, 2);
-            if (profitSecondHalf != null)
+            catch (NotImplementedException ex)
             {
-                ProfitSecondHalf.TryAdd(market, 0);
-                ProfitSecondHalf[market] += profitSecondHalf.Value;
+                
             }
         }
     }
@@ -716,7 +723,7 @@ public class OddsProfitCalc
             Market.AhWin075 => throw new NotImplementedException(),
             Market.AhLose075 => throw new NotImplementedException(),
             Market.AhWinP1 => throw new NotImplementedException(),
-            Market.AhLoseP1 => throw new NotImplementedException(),
+            Market.AhLoseP1 => Score() + 1 < ScoreOpp() ? odds : (Score() + 1 == ScoreOpp() ? 1 : 0),
             Market.AhWinP125 => throw new NotImplementedException(),
             Market.AhLoseP125 => throw new NotImplementedException(),
             Market.AhWinP15 => throw new NotImplementedException(),
@@ -1168,7 +1175,7 @@ public class OddsProfitCalc
                 Market.AhWin075 => throw new NotImplementedException(),
                 Market.AhLose075 => throw new NotImplementedException(),
                 Market.AhWinP1 => throw new NotImplementedException(),
-                Market.AhLoseP1 => throw new NotImplementedException(),
+                Market.AhLoseP1 => IsHome() ? OddsVal(726) : OddsVal(725),
                 Market.AhWinP125 => throw new NotImplementedException(),
                 Market.AhLoseP125 => throw new NotImplementedException(),
                 Market.AhWinP15 => throw new NotImplementedException(),
@@ -1567,7 +1574,7 @@ public class OddsProfitCalc
                 Market.AhWin075 => throw new NotImplementedException(),
                 Market.AhLose075 => throw new NotImplementedException(),
                 Market.AhWinP1 => throw new NotImplementedException(),
-                Market.AhLoseP1 => throw new NotImplementedException(),
+                Market.AhLoseP1 => IsHome() ? OddsVal(1739) : OddsVal(1734),
                 Market.AhWinP125 => throw new NotImplementedException(),
                 Market.AhLoseP125 => throw new NotImplementedException(),
                 Market.AhWinP15 => throw new NotImplementedException(),
@@ -1730,7 +1737,7 @@ public class OddsProfitCalc
                 Market.AhWin075 => throw new NotImplementedException(),
                 Market.AhLose075 => throw new NotImplementedException(),
                 Market.AhWinP1 => throw new NotImplementedException(),
-                Market.AhLoseP1 => throw new NotImplementedException(),
+                Market.AhLoseP1 => IsHome() ? OddsVal(1371) : OddsVal(1382),
                 Market.AhWinP125 => throw new NotImplementedException(),
                 Market.AhLoseP125 => throw new NotImplementedException(),
                 Market.AhWinP15 => throw new NotImplementedException(),
