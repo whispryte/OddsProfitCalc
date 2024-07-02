@@ -964,8 +964,8 @@ public class OddsProfitCalc
             Market.Fouls_1x2_Draw => game.Statistics?.FoulsHome == game.Statistics?.FoulsAway ? odds : 0,
             Market.Fouls_1x2_Lose => game.Statistics?.FoulsHome < game.Statistics?.FoulsAway ? odds : 0,
 
-            Market.FoulsAhWin05 => game.Statistics?.FoulsHome - 0.5 > game.Statistics?.FoulsAway ? odds : 0,
-            Market.FoulsAhLose05 => game.Statistics?.FoulsHome - 0.5 < game.Statistics?.FoulsAway ? odds : 0,
+            Market.FoulsAhWin05 => Fouls() + 0.5 > FoulsOpp() ? odds : 0,
+            Market.FoulsAhLose05 => Fouls() + 0.5 < FoulsOpp() ? odds : 0,
             Market.FoulsAhWin1 => game.Statistics?.FoulsHome - 1 > game.Statistics?.FoulsAway ? odds : (game.Statistics?.FoulsHome - 1 == game.Statistics?.FoulsAway ? 1 : 0),
             Market.FoulsAhLose1 => game.Statistics?.FoulsHome - 1 < game.Statistics?.FoulsAway ? odds : (game.Statistics?.FoulsHome - 1 == game.Statistics?.FoulsAway ? 1 : 0),
             Market.FoulsAhWin15 => game.Statistics?.FoulsHome - 1.5 > game.Statistics?.FoulsAway ? odds : 0,
@@ -2006,6 +2006,10 @@ public class OddsProfitCalc
         byte? CardsOpp() => (byte?)(IsHome()
             ? game.Statistics?.RedCardsAway + game.Statistics?.YellowCardsAway
             : game.Statistics?.RedCardsHome + game.Statistics?.YellowCardsHome);
+        
+        // Фолы
+        byte? Fouls() => IsHome() ? game.Statistics?.FoulsHome : game.Statistics?.FoulsAway; 
+        byte? FoulsOpp() => IsHome() ? game.Statistics?.FoulsAway : game.Statistics?.FoulsHome;
 
         #endregion
     }
